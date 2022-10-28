@@ -11,9 +11,9 @@ Tasks
 
 Fonctionnalités:
 
-[] Ajoiuter une collevction
+[x] Ajoiuter une collevction
 [] Supprimer une collection
 [] Renommer une collection *
-[] Empêcher les doublons
+[x] Empêcher les doublons
 [] Ajouter une tâche
 [] Supprimer une tâche

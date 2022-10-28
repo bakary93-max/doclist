@@ -3,21 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <title>Doclist</title>
+    <script src="https://unpkg.com/htmx.org@1.8.2"></script>
 </head>
 <body>
-    <h1> Hello World</h1>
-
+    <h1>Doclist</h1>
+<div id="collections">
     {% for collection in collections %}
         <h2>{{ collection.name }}</h2>
     {% endfor %}
+</div>
 
-    <form method="POST" action="{% url 'add-collection' %}">
+    <div id="tasks">
+    {% for task in tasks %}
+        <h2>{{ task.name }}</h2>
+    {% endfor %}
+
+</div>
+
+    <form method="POST">
         {% csrf_token %}
 
-        <input type= "text" name="collection-name" , placeholder= "Tape your name">
-        <button type="submit">Ajouter</button>
-
-
+        <label>
+            <input type= "text" name="collection-name" , placeholder= "Tape your name">
+        </label>
+        <button hx-post= "{% url 'add-collection' %}"
+                hx-target="#collections"
+                hx-swap="beforeend"
+                type="submit">Add a collection
+        </button>
     </form>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>
+            <input type= "text" name="task-description" , placeholder= "Tape your task">
+        </label>
+        <button hx-post= "{% url 'add-task' %}"
+                hx-target="#tasks"
+                hx-swap="beforeend"
+                type="submit">Add a task
+        </button>
+    </form>
+
+    <script>
+        document.body.addEventListener("htmx:responseError", function (evt){
+            alert(evt.detail.xhr.responseText);
+        })
+    </script>
 </body>
 </html>
